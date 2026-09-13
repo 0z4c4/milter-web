@@ -9,6 +9,16 @@ const links = [
   { label: 'Milter Run', to: '/milter-run' },
 ]
 
+const BASE = import.meta.env.BASE_URL || '/'
+
+const relPath = (pathname: string): string => {
+  if (BASE === '/') return pathname
+  const cut = BASE.endsWith('/') ? BASE.slice(0, -1) : BASE
+  if (pathname === cut || pathname === cut + '/') return '/'
+  if (pathname.startsWith(cut + '/')) return pathname.slice(cut.length)
+  return pathname
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
@@ -27,8 +37,9 @@ export default function Navbar() {
   }
 
   const isActive = (l: (typeof links)[number]): string => {
-    if (l.to === '/') return pathname === '/' ? ' active' : ''
-    return pathname === l.to || pathname.startsWith(l.to + '/') ? ' active' : ''
+    const rel = relPath(pathname)
+    if (l.to === '/') return rel === '/' ? ' active' : ''
+    return rel === l.to || rel.startsWith(l.to + '/') ? ' active' : ''
   }
 
   return (
