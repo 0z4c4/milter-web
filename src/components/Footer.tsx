@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { config, servicios, whatsappLink } from '../data/content'
 import { asset } from '../lib/base'
 
+const YEAR = new Date().getFullYear()
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -66,7 +68,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <div className="container">
-          <p>© {new Date().getFullYear()} Milter Corp. — Santa Cruz de la Sierra, Bolivia</p>
+          <p>© {YEAR} Milter Corp. — Santa Cruz de la Sierra, Bolivia</p>
           <p className="footer-iso">
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">ISO 9001</a>
           </p>
